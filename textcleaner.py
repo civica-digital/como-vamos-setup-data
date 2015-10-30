@@ -6,7 +6,7 @@ with open('output.csv', 'r') as content_file:
     content = content_file.read()
 
 stripped_content=stripNonAlphaNum(content)
-stripped_string="".join(text)
+stripped_string="".join(stripped_content)
 
 with open("output.csv", "w") as output_file:
     output_file.write(stripped_string)
