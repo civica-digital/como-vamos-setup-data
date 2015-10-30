@@ -1,0 +1,30 @@
+Nomenclatura,Dimension,Modulo
+AG,Optimismo y bienestar subjetivo,Aspectos Generales 
+CV,Optimismo y bienestar subjetivo,Calidad De Vida
+CO,Optimismo y bienestar subjetivo,Clima De Opinión Económica
+AL,Optimismo y bienestar subjetivo,Alimentación
+ED,Activos de las personas,Educación
+SA,Activos de las personas,Salud
+SP,Hábitat Urbano,Servicios Públicos
+VS,Hábitat Urbano,Equipamientos Del Barrio
+VS,Hábitat Urbano,Vivienda
+VS,Hábitat Urbano,Seguridad
+PC,Buen Gobierno y Ciudadanía,Participación Ciudadana
+RC,Buen Gobierno y Ciudadanía,"Responsabilidad, Corresponsabilidad Y Convivencia Ciudadana"
+DE,Buen Gobierno y Ciudadanía,"Inclusión, Equidad Y Derechos"
+CR,Buen Gobierno y Ciudadanía,"Cultura, Recreación Y Deporte"
+MV,Hábitat Urbano,Movilidad Vial
+EP,Hábitat Urbano,Espacio Público
+MA,Hábitat Urbano,"Medio Ambiente, Cambio Climático Y Gestión De Riesgos"
+MB,Hábitat Urbano,"Medio Ambiente, Cambio Climático Y Gestión De Riesgos"
+MC,Extra,Modelo De Ciudad
+GP,Buen Gobierno y Ciudadanía,Aspectos Gubernamentales - Gestión Pública
+PR,Buen Gobierno y Ciudadanía,Presentación De Resultados
+GG,Buen Gobierno y Ciudadanía,Aspectos Gubernamentales - Calificación De Gestión Global
+CC,Buen Gobierno y Ciudadanía,Concejo De La Ciudad
+MG,Extra,"Módulo De Discriminación, Mujer Y Niñez"
+TE,Extra,Módulo De Desigualdad
+FA,Extra,Módulo De Desigualdad
+PO,Extra,Módulo De Desigualdad
+IM,Extra,Módulo De Desigualdad
+O,Extra,Módulo De Desigualdad
