@@ -7,7 +7,7 @@ import difflib
 
 print("Loading CSV file")
 #Cargar el archivo de datos, accesible mediante 146.148.12.206/output.csv , especificamos que los
-data = pd.read_csv("output.csv",delimiter=",", dtype=np.string_, na_values=[" "], encoding="utf-8")
+data = pd.read_csv("output_4.csv",delimiter=",", dtype=np.string_, na_values=[" "], encoding="utf-8")
 
 def cleancolumns(data):
     columns_list = list(data.columns.values)
