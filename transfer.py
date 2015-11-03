@@ -68,8 +68,16 @@ def limpiar_texto(texto):
 
 def detect_variable_type(respuestas):
     cantidad_respuestas = len(respuestas)
-    if respuestas == 5:
-        resp_type = "niveles"
+    respuestas_1 = ["Muy Malo", "Nada", "Muy insatisfecho", "Muy insatisfecho"]
+    if respuestas == 5 or respuestas == 6:
+        try:
+            resp_1 = respuestas["1"]
+            if resp_1 in respuestas_1:
+                resp_type = "niveles"
+            else:
+                resp_type = "categorica"
+        except:
+            resp_type = "categorica"
     else:
         resp_type = "categorica"
     return resp_type
