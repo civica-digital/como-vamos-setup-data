@@ -6,7 +6,7 @@ import csv
 import difflib
 
 print("Loading CSV file")
-#Cargar el archivo de datos, accesible mediante 146.148.12.206/output.csv , especificamos que los 
+#Cargar el archivo de datos, accesible mediante 146.148.12.206/output.csv , especificamos que los
 data = pd.read_csv("output.csv",delimiter=",", dtype=np.string_, na_values=[" "], encoding="utf-8")
 
 def cleancolumns(data):
@@ -41,7 +41,7 @@ def variable_preprocess(header):
     suffix = header[suffix_starts:suffix_finishes]
     variable =header
     variable_fixed = header[0:suffix_starts]
-    if suffix== "_*" and variable in preguntas_C: 
+    if suffix== "_*" and variable in preguntas_C:
         variable = variable_fixed
     return variable
 
@@ -66,20 +66,32 @@ def limpiar_texto(texto):
     texto = texto.replace('"',"'")
     return texto
 
+def detect_variable_type(respuestas):
+    cantidad_respuestas = len(respuestas)
+    if respuestas == 5:
+        resp_type = "niveles"
+    else:
+        resp_type = "categorica"
+    return resp_type
+
 def generar_linea(variable,data):
     linea = []
     linea.append(variable)
     try:
         prefixprev = getclosestelement(variable,prefix_variables.keys())
-        linea.append(limpiar_texto(str(prefix_variables[prefixprev]))) 
+        linea.append(limpiar_texto(str(prefix_variables[prefixprev])))
     except: linea.append(np.nan)
     dimension, modulo = get_variable_dim_mod_topic(variable)
     linea.append(dimension)
     linea.append(modulo)
-    try: 
+    try:
         respvariable = getclosestelement(variable,prefix_respuestas.keys())
-        linea.append(limpiar_texto(str(prefix_respuestas[respvariable]))) 
-    except: linea.append(np.nan)
+        resp = prefix_respuestas[respvariable]
+        linea.append(limpiar_texto(str(resp)))
+        linea.append(detect_variable_type(resp))
+    except:
+        linea.append(np.nan)
+        linea.append(np.nan)
     try:
         min_year, max_year = get_variable_avail_years(variable,data)
     except:
@@ -95,44 +107,44 @@ def create_dictionary(data):
     for header in headers_bulk:
         linea = generar_linea(header,data)
         dictionary_list.append(linea)
-    df_dict = pd.DataFrame(dictionary_list, columns=["variable","descripcion","dimension","modulo","respuestas","ano_min","ano_max"])
+    df_dict = pd.DataFrame(dictionary_list, columns=["variable","descripcion","dimension","modulo","respuestas","tipo_respuestas","ano_min","ano_max"])
     return df_dict
 
 def generar_csvs(data):
-    
+
     print("Bulk")
-    
+
 
     datos_bulk_sinna = data.dropna(axis=1,how="all")
     datos_bulk_sinna = cleancolumns(datos_bulk_sinna)
     diccionario_bulk=create_dictionary(datos_bulk_sinna)
-    
+
     #Archive data
-    
+
     filename = "output/archivo_encuestas_lote.csv"
     filename_diccionario = "output/diccionario_archivo_encuestas_lote.csv"
-    
+
     datos_bulk_sinna.to_csv(filename,quoting=csv.QUOTE_NONNUMERIC, encoding="utf-8", na_rep = np.nan, index = False)
     diccionario_bulk.to_csv(filename_diccionario,quoting=csv.QUOTE_NONNUMERIC, encoding="utf-8", na_rep = np.nan, index = False )
-    
+
     for ciudad_key in diccionario_ciudades:
-        
+
         print(ciudad_key)
         ciudad = diccionario_ciudades[ciudad_key]
         filename_bulk_ciudad ="output/"+ciudad + "/archivo_encuestas_" + ciudad+"_lote.csv"
         filename_diccionario_bulk_ciudad = "output/"+ciudad + "/" + "diccionario_archivo_encuestas_"+ciudad+"_lote.csv"
-        
-        
+
+
         if not os.path.exists("output/"+ciudad):
             os.makedirs("output/"+ciudad)
         datos_bulk_ciudad = data[data['CIUDAD'] == ciudad_key]
         datos_bulk_ciudad_sinna = datos_bulk_ciudad.dropna(axis=1,how="all")
         diccionario_ciudad=create_dictionary(datos_bulk_ciudad_sinna)
         años_datos = np.unique(datos_bulk_ciudad_sinna.AÑO)
-        
+
         datos_bulk_ciudad_sinna.to_csv(filename_bulk_ciudad,quoting=csv.QUOTE_NONNUMERIC, encoding="utf-8", na_rep = np.nan, index = False)
         diccionario_ciudad.to_csv(filename_diccionario_bulk_ciudad,quoting=csv.QUOTE_NONNUMERIC, encoding="utf-8", na_rep = np.nan, index = False)
-        
+
 
     #data for indices only valid for years before 2008
     dictionary_fail = diccionario_bulk[diccionario_bulk.ano_max.notnull()]
@@ -141,31 +153,31 @@ def generar_csvs(data):
     datos_bulk_sinna = datos_bulk_sinna.drop(set(dictionary_fail["variable"]),1)
     dictionary_bulk = create_dictionary(datos_bulk_sinna)
     #repeat process for filtered data, this should only be a copy paste of what happens up there for the archive
-    
+
     filename = "output/encuestas_lote.csv"
     filename_diccionario = "output/diccionario_encuestas_lote.csv"
-    
+
     datos_bulk_sinna.to_csv(filename,quoting=csv.QUOTE_NONNUMERIC, encoding="utf-8", na_rep = np.nan, index = False)
     diccionario_bulk.to_csv(filename_diccionario,quoting=csv.QUOTE_NONNUMERIC, encoding="utf-8", na_rep = np.nan, index = False)
-    
+
     for ciudad_key in diccionario_ciudades:
-        
+
         print(ciudad_key)
         ciudad = diccionario_ciudades[ciudad_key]
         filename_bulk_ciudad ="output/"+ciudad + "/encuestas_" + ciudad+"_lote.csv"
         filename_diccionario_bulk_ciudad = "output/"+ciudad + "/" + "diccionario_encuestas_"+ciudad+"_lote.csv"
-        
-        
+
+
         if not os.path.exists("output/"+ciudad):
             os.makedirs("output/"+ciudad)
         datos_bulk_ciudad = data[data['CIUDAD'] == ciudad_key]
         datos_bulk_ciudad_sinna = datos_bulk_ciudad.dropna(axis=1,how="all")
         diccionario_ciudad=create_dictionary(datos_bulk_ciudad_sinna)
         años_datos = np.unique(datos_bulk_ciudad_sinna.AÑO)
-        
+
         datos_bulk_ciudad_sinna.to_csv(filename_bulk_ciudad,quoting=csv.QUOTE_NONNUMERIC, encoding="utf-8", na_rep = np.nan, index = False)
         diccionario_ciudad.to_csv(filename_diccionario_bulk_ciudad,quoting=csv.QUOTE_NONNUMERIC, encoding="utf-8", na_rep = np.nan, index = False)
-        
+
         for año in años_datos:
             print(año)
             filename_año = "output/"+ciudad + "/encuestas_" + ciudad+"_"+   año + ".csv"
