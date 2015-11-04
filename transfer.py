@@ -9,6 +9,13 @@ print("Loading CSV file")
 #Cargar el archivo de datos, accesible mediante 146.148.12.206/output.csv , especificamos que los
 data = pd.read_csv("output_4.csv",delimiter=",", dtype=np.string_, na_values=[" "], encoding="utf-8")
 
+def cleanstring(string):
+    string = string.strip()
+    string = string.lower()
+    string = string.replace(" ","-")
+    string = strip_accents(string)
+    return string
+
 def cleancolumns(data):
     columns_list = list(data.columns.values)
     nuevas_columnas = []
@@ -139,12 +146,13 @@ def generar_csvs(data):
 
         print(ciudad_key)
         ciudad = diccionario_ciudades[ciudad_key]
-        filename_bulk_ciudad ="output/"+ciudad + "/archivo_encuestas_" + ciudad+"_lote.csv"
-        filename_diccionario_bulk_ciudad = "output/"+ciudad + "/" + "diccionario_archivo_encuestas_"+ciudad+"_lote.csv"
+        ciudad_clean = cleanstring(ciudad)
+        filename_bulk_ciudad ="output/"+ciudad_clean + "/archivo_encuestas_" + ciudad_clean+"_lote.csv"
+        filename_diccionario_bulk_ciudad = "output/"+ciudad_clean + "/" + "diccionario_archivo_encuestas_"+ciudad_clean+"_lote.csv"
 
 
-        if not os.path.exists("output/"+ciudad):
-            os.makedirs("output/"+ciudad)
+        if not os.path.exists("output/"+ciudad_clean):
+            os.makedirs("output/"+ciudad_clean)
         datos_bulk_ciudad = data[data['CIUDAD'] == ciudad_key]
         datos_bulk_ciudad_sinna = datos_bulk_ciudad.dropna(axis=1,how="all")
         diccionario_ciudad=create_dictionary(datos_bulk_ciudad_sinna)
@@ -172,12 +180,13 @@ def generar_csvs(data):
 
         print(ciudad_key)
         ciudad = diccionario_ciudades[ciudad_key]
-        filename_bulk_ciudad ="output/"+ciudad + "/encuestas_" + ciudad+"_lote.csv"
-        filename_diccionario_bulk_ciudad = "output/"+ciudad + "/" + "diccionario_encuestas_"+ciudad+"_lote.csv"
+        ciudad_clean = cleanstring(ciudad)
+        filename_bulk_ciudad ="output/"+ciudad_clean + "/encuestas_" + ciudad_clean+"_lote.csv"
+        filename_diccionario_bulk_ciudad = "output/"+ciudad_clean + "/" + "diccionario_encuestas_"+ciudad_clean+"_lote.csv"
 
 
-        if not os.path.exists("output/"+ciudad):
-            os.makedirs("output/"+ciudad)
+        if not os.path.exists("output/"+ciudad_clean):
+            os.makedirs("output/"+ciudad_clean)
         datos_bulk_ciudad = data[data['CIUDAD'] == ciudad_key]
         datos_bulk_ciudad_sinna = datos_bulk_ciudad.dropna(axis=1,how="all")
         diccionario_ciudad=create_dictionary(datos_bulk_ciudad_sinna)
@@ -188,8 +197,8 @@ def generar_csvs(data):
 
         for año in años_datos:
             print(año)
-            filename_año = "output/"+ciudad + "/encuestas_" + ciudad+"_"+   año + ".csv"
-            filename_diccionario_año = "output/"+ciudad + "/" + "diccionario_encuestas_"+ciudad+"_"+año+".csv"
+            filename_año = "output/"+ciudad_clean + "/encuestas_" + ciudad_clean+"_"+   año + ".csv"
+            filename_diccionario_año = "output/"+ciudad_clean + "/" + "diccionario_encuestas_"+ciudad_clean+"_"+año+".csv"
             datos_bulk_ciudad_año = datos_bulk_ciudad_sinna[datos_bulk_ciudad_sinna['AÑO'] == año]
             datos_bulk_ciudad_año_sinna = datos_bulk_ciudad_año.dropna(axis=1,how="all")
             diccionario_ciudad_año=create_dictionary(datos_bulk_ciudad_año_sinna)
