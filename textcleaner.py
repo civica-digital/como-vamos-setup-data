@@ -4,7 +4,7 @@ def stripNonAlphaNum(text):
 
 
 with open("output_1.csv", "r") as input:
-    with open("output_2.csv", "wb") as output:
+    with open("output_2.csv", "w") as output:
         for line in input:
             stripped_content = stripNonAlphaNum(line)
             stripped_string = "".join(stripped_content)
