@@ -8,7 +8,7 @@ list_num = [46, 76, 106, 139, 169, 200, 230, 260, 290, 321, 366, 396, 426, 456, 
 
 print("Reading File")
 #data = pandas.read_csv("output_2.csv", delimiter = ",",dtype=numpy.string_, engine='python' )
-data = pandas.read_csv("output_2.csv", delimiter = ",", engine='python' )
+data = pandas.read_csv("output_2.csv", delimiter = ",", dtype=np.string_ )
 print("Finshed Reading File")
 n, m = data.shape
 jump = 30
