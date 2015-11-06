@@ -1,6 +1,6 @@
 def stripNonAlphaNum(text):
     import re
-    return re.compile(r'[^A-Za-z0-9_,; ]', re.UNICODE).split(text)
+    return re.compile(r'[^A-Za-z0-9_,;\n ]', re.UNICODE).split(text)
 
 
 with open("output_1.csv", "r") as input:
