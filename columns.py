@@ -9,7 +9,7 @@ dict_num = {45: 'CV1A_12', 75: 'CV1A_3', 105: 'CV1A_45', 138: 'CV2B', 168: 'CV3'
 
 print("Reading File")
 #data = pandas.read_csv("output_2.csv", delimiter = ",",dtype=numpy.string_, engine='python' )
-data = pandas.read_csv("output_2.csv", delimiter = ",", dtype=np.string_ )
+data = pandas.read_csv("output_2.csv", delimiter = ",", dtype=numpy.string_ )
 print("Finshed Reading File")
 n, m = data.shape
 jump = 30
