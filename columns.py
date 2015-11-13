@@ -22,11 +22,13 @@ while i < n:
         print(next_lim)
         extract_cols = data.iloc[:,i:next_lim-1]
         working_cols = data.iloc[:,next_lim-1]
+        print(working_cols)
         j = 0
         while j < jump-1:
             working_cols = working_cols + ";" + data.iloc[:,next_lim+j]
             j = j + 1
         print(working_cols)
+        print(extract_cols)
         extract_cols = pandas.concat([extract_cols,working_cols], axis = 1, join='inner')
         extract_cols.rename(columns={0:dict_num[next_lim]}, inplace=True)
         if i == 1:
