@@ -26,6 +26,7 @@ while i < n:
         while j < jump-1:
             working_cols = working_cols + ";" + data.iloc[:,next_lim+j]
             j = j + 1
+        print(working_cols)
         extract_cols = pandas.concat([extract_cols,working_cols], axis = 1, join='inner')
         extract_cols.rename(columns={0:dict_num[next_lim]}, inplace=True)
         if i == 1:
