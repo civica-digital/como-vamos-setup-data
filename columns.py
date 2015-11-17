@@ -21,6 +21,7 @@ while i < n:
         next_lim = list_num[iternum]
         print(next_lim)
         print(data.columns.values[i])
+        print(data.columns.values[next_lim])
         extract_cols = data.iloc[:,i:next_lim-1]
         working_cols = data.iloc[:,next_lim-1]
         j = 0
