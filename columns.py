@@ -27,16 +27,16 @@ for variable in variable_names:
     pos = data.columns.get_loc(variable)
     list_num.append(pos)
     dict_num[pos] = variable
-
+print(list_num)
 list_num = list_num.sort()
 
 while i < n:
     while iternum < len(list_num):
         next_lim = list_num[iternum]
         extract_cols = data.iloc[:,i:next_lim-1]
-        working_cols = data.iloc[:,next_lim]
+        working_cols = data.iloc[:,next_lim-1]
         j = 0
-        while j < jump:
+        while j < jump-1:
             working_cols = working_cols + ";" + data.iloc[:,next_lim+j]
             j = j + 1
         print(working_cols)
