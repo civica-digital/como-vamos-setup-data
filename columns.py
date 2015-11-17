@@ -41,5 +41,5 @@ while i < n:
     table = pandas.concat([table,data.iloc[:,-1]], axis = 1)
     i = n
 print("Writing File")
-table.to_csv("output_3.csv",quoting=csv.QUOTE_NONNUMERIC, encoding="utf-8", na_rep = numpy.nan, index = False)
+table.to_csv("output_3.csv",quoting=csv.QUOTE_ALL, encoding="utf-8", na_rep = numpy.nan, index = False)
 print("End of Program")
