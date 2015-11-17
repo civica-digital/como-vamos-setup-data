@@ -41,7 +41,8 @@ while i < n:
             j = j + 1
         print(working_cols)
         extract_cols = pandas.concat([extract_cols,pandas.DataFrame(working_cols)], axis = 1, join='inner')
-        extract_cols.rename(columns={0:dict_num[next_lim]}, inplace=True)
+        extract_cols.rename(columns={0:dict_num[next_lim][0:-2]}, inplace=True)
+        print(dict_num[next_lim][0:-2])
         if i == 1:
             table = extract_cols
         else:
