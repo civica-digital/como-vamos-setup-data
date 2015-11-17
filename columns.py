@@ -35,7 +35,7 @@ while i < n:
         next_lim = list_num[iternum]
         working_cols = data.iloc[:,next_lim]
         extract_cols = data.iloc[:,i:next_lim-1]
-        j = 0
+        j = 1
         while j < jump-1:
             working_cols = working_cols + ";" + data.iloc[:,next_lim+j]
             j = j + 1
