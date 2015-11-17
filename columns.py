@@ -24,9 +24,12 @@ while i < n:
         print(data.columns.values[i])
         print(data.columns.values[next_lim])
         extract_cols = data.iloc[:,i:next_lim-1]
-        print(extract_cols.columns.values)
         working_cols = data.iloc[:,next_lim-1]
         j = 0
+
+        datailoc = data.iloc[:,next_lim+29]
+        print(datailoc.columns.values)
+
         while j < jump-1:
             working_cols = working_cols + ";" + data.iloc[:,next_lim+j]
             j = j + 1
