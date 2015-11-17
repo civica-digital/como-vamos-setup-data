@@ -36,7 +36,7 @@ while i < n:
         iternum = iternum + 1
         i = next_lim + jump-1
     table = pandas.concat([table,data.iloc[:,i:-1]], axis = 1)
-    table = pandas.concat([table,pandas.DataFrame(data.iloc[:,-1]]), axis = 1)
+    table = pandas.concat([table,pandas.DataFrame(data.iloc[:,-1])], axis = 1)
     i = n
 print("Writing File")
 table.to_csv("output_3.csv",quoting=csv.QUOTE_ALL, encoding="utf-8", na_rep = numpy.nan, index = False)
