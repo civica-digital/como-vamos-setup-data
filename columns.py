@@ -24,15 +24,10 @@ while i < n:
         working_cols = data.iloc[:,next_lim-1]
         print(working_cols)
         j = 0
-        print(type(working_cols))
         while j < jump-1:
-            print(type(working_cols))
             working_cols = working_cols + ";" + data.iloc[:,next_lim+j]
             j = j + 1
-        print(type(working_cols))
-        print(working_cols)
-        print(extract_cols)
-        extract_cols = pandas.concat([extract_cols,working_cols], axis = 1, join='inner')
+        extract_cols = pandas.concat([extract_cols,pandas.DataFrame(working_cols)], axis = 1, join='inner')
         extract_cols.rename(columns={0:dict_num[next_lim]}, inplace=True)
         if i == 1:
             table = extract_cols
