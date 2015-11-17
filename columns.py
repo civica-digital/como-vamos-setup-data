@@ -22,8 +22,11 @@ table = pandas.DataFrame()
 iternum = 0
 
 list_num = []
+dict_num = {}
 for variable in variable_names:
-    index_list.append(data.columns.get_loc(variable))
+    pos = data.columns.get_loc(variable)
+    list_num.append(pos)
+    dict_num[pos] = variable
 
 while i < n:
     while iternum < len(list_num):
