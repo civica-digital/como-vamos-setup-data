@@ -28,18 +28,15 @@ for variable in variable_names:
     list_num.append(pos)
     dict_num[pos] = variable
 
+list_num = list_num.sort()
+
 while i < n:
     while iternum < len(list_num):
         next_lim = list_num[iternum]
-        print(i)
-        print(next_lim)
-        print(data.columns.values[i])
-        print(data.columns.values[next_lim])
         extract_cols = data.iloc[:,i:next_lim-1]
-        working_cols = data.iloc[:,next_lim-1]
+        working_cols = data.iloc[:,next_lim]
         j = 0
-        print(data.columns.values[next_lim-1:next_lim+jump-1])
-        while j < jump-1:
+        while j < jump:
             working_cols = working_cols + ";" + data.iloc[:,next_lim+j]
             j = j + 1
         print(working_cols)
