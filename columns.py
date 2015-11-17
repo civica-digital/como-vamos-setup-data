@@ -19,6 +19,7 @@ iternum = 0
 while i < n:
     while iternum < len(list_num):
         next_lim = list_num[iternum]
+        print(i)
         print(next_lim)
         print(data.columns.values[i])
         print(data.columns.values[next_lim])
@@ -29,7 +30,7 @@ while i < n:
             working_cols = working_cols + ";" + data.iloc[:,next_lim+j]
             j = j + 1
         print(working_cols)
-        print(pandas.DataFrame(working_cols))
+        print(pandas.DataFrame())
         extract_cols = pandas.concat([extract_cols,pandas.DataFrame(working_cols)], axis = 1, join='inner')
         extract_cols.rename(columns={0:dict_num[next_lim]}, inplace=True)
         if i == 1:
