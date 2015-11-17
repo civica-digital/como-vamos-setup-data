@@ -29,6 +29,7 @@ while i < n:
             working_cols = working_cols + ";" + data.iloc[:,next_lim+j]
             j = j + 1
         print(working_cols)
+        print(pandas.DataFrame(working_cols))
         extract_cols = pandas.concat([extract_cols,pandas.DataFrame(working_cols)], axis = 1, join='inner')
         extract_cols.rename(columns={0:dict_num[next_lim]}, inplace=True)
         if i == 1:
@@ -41,5 +42,5 @@ while i < n:
     table = pandas.concat([table,pandas.DataFrame(data.iloc[:,-1])], axis = 1)
     i = n
 print("Writing File")
-table.to_csv("output_3.csv",quoting=csv.QUOTE_ALL, encoding="utf-8", na_rep = numpy.nan, index = False)
+table.to_csv("output_3.csv",quoting=csv.QUOTE_NONNUMERIC, encoding="utf-8", na_rep = numpy.nan, index = False)
 print("End of Program")
