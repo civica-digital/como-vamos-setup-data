@@ -24,12 +24,12 @@ while i < n:
         working_cols = data.iloc[:,next_lim-1]
         print(working_cols)
         j = 0
-        type(working_cols)
+        print(type(working_cols))
         while j < jump-1:
-            type(working_cols)
+            print(type(working_cols))
             working_cols = working_cols + ";" + data.iloc[:,next_lim+j]
             j = j + 1
-        type(working_cols)
+        print(type(working_cols))
         print(working_cols)
         print(extract_cols)
         extract_cols = pandas.concat([extract_cols,working_cols], axis = 1, join='inner')
