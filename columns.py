@@ -28,7 +28,7 @@ for variable in variable_names:
     list_num.append(pos)
     dict_num[pos] = variable
 print(list_num)
-list_num = list_num.sort()
+list_num = sorted(list_num)
 
 while i < n:
     while iternum < len(list_num):
