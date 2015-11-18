@@ -34,9 +34,11 @@ while i < n:
             working_cols = working_cols + ";" + data.iloc[:,next_lim+j]
             j = j + 1
 
-        extract_cols = pandas.concat([extract_cols,pandas.DataFrame(working_cols)], axis = 1, join='inner')
-        extract_cols.rename(columns={0:dict_num[next_lim][0:-2]}, inplace=True)
-        print(extract_cols)
+        df_working_cols = pandas.DataFrame(working_cols)
+        df_working_cols.rename(columns={0:dict_num[next_lim][0:-2]}, inplace=True)
+
+        extract_cols = pandas.concat([extract_cols,df_working_cols], axis = 1, join='inner')
+
         if i == iternum:
             table = extract_cols
         else:
