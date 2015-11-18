@@ -42,11 +42,8 @@ while i < n:
 
         extract_cols = pandas.concat([extract_cols,pandas.DataFrame(working_cols)], axis = 1, join='inner')
         extract_cols.rename(columns={0:dict_num[next_lim][0:-2]}, inplace=True)
-
-        print(dict_num[next_lim][0:-2])
-        print(working_cols)
-
-        if i == 1:
+        print(extract_cols)
+        if i == iternum:
             table = extract_cols
         else:
             table = pandas.concat([table,extract_cols], axis = 1, join='inner')
