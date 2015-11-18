@@ -131,8 +131,7 @@ def create_dictionary(data):
     for header in headers_bulk:
         linea = generar_linea(header,data)
         dictionary_list.append(linea)
-    df_dict = pd.DataFrame(dictionary_list)
-    print(df_dict.shape)
+    df_dict = pd.DataFrame(dictionary_list, columns=["variable","descripcion","dimension","modulo","respuestas","tipo_respuestas","ano_min","ano_max"])
     return df_dict
 
 def generar_csvs(data):
