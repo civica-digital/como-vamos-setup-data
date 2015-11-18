@@ -76,7 +76,7 @@ def limpiar_texto(texto):
 
 def detect_variable_type(respuestas):
     cantidad_respuestas = len(respuestas)
-    respuestas_1 = ["Muy Malo", "Nada", "Muy insatisfecho", "Muy insatisfecho"]
+    respuestas_1 = ["Muy Malo", "Nada", "Muy insatisfecho"]
     if respuestas == 5 or respuestas == 6:
         try:
             resp_1 = respuestas["1"]
