@@ -15,8 +15,7 @@ data.rename(columns={'AO':'AÑO'}, inplace=True)
 
 
 def strip_accents(s):
-   return ''.join(c for c in unicodedata.normalize('NFD', s)
-                  if unicodedata.category(c) != 'Mn')
+   return ''.join(c for c in unicodedata.normalize('NFD', s) if unicodedata.category(c) != 'Mn')
 
 
 def cleanstring(string):
@@ -132,7 +131,8 @@ def create_dictionary(data):
     for header in headers_bulk:
         linea = generar_linea(header,data)
         dictionary_list.append(linea)
-    df_dict = pd.DataFrame(dictionary_list, columns=["variable","descripcion","dimension","modulo","respuestas","tipo_respuestas","ano_min","ano_max"])
+    df_dict = pd.DataFrame(dictionary_list)
+    print(df_dict.shape)
     return df_dict
 
 def generar_csvs(data):
