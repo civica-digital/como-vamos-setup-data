@@ -148,16 +148,18 @@ def generar_csvs(data):
     filename = "output/archivo_encuestas_lote.csv"
     filename_diccionario = "output/diccionario_archivo_encuestas_lote.csv"
 
-    datos_bulk_sinna.to_csv(filename,quoting=csv.QUOTE_NONNUMERIC, encoding="utf-8", na_rep = np.nan, index = False)
-    diccionario_bulk.to_csv(filename_diccionario,quoting=csv.QUOTE_NONNUMERIC, encoding="utf-8", na_rep = np.nan, index = False )
+    datos_bulk_sinna.to_csv(filename,quoting=csv.QUOTE_ALL, encoding="utf-8", na_rep = np.nan, index = False)
+    diccionario_bulk.to_csv(filename_diccionario,quoting=csv.QUOTE_ALL, encoding="utf-8", na_rep = np.nan, index = False )
 
     for ciudad_key in diccionario_ciudades:
 
         print(ciudad_key)
         ciudad = diccionario_ciudades[ciudad_key]
         ciudad_clean = cleanstring(ciudad)
-        filename_bulk_ciudad ="output/"+ciudad_clean + "/archivo_encuestas_" + ciudad_clean+"_lote.csv"
-        filename_diccionario_bulk_ciudad = "output/"+ciudad_clean + "/" + "diccionario_archivo_encuestas_"+ciudad_clean+"_lote.csv"
+        if not os.path.exists("output/"+ciudad_clean+"/subjetivos_archivo"):
+            os.makedirs("output/"+ciudad_clean+"/subjetivos_archivo")
+        filename_bulk_ciudad ="output/"+ciudad_clean+ "/subjetivos_archivo/archivo_encuestas_" + ciudad_clean+"_lote.csv"
+        filename_diccionario_bulk_ciudad = "output/"+ciudad_clean+ "/subjetivos_archivo/diccionario_archivo_encuestas_"+ciudad_clean+"_lote.csv"
 
 
         if not os.path.exists("output/"+ciudad_clean):
@@ -167,8 +169,8 @@ def generar_csvs(data):
         diccionario_ciudad=create_dictionary(datos_bulk_ciudad_sinna)
         años_datos = np.unique(datos_bulk_ciudad_sinna.AÑO)
 
-        datos_bulk_ciudad_sinna.to_csv(filename_bulk_ciudad,quoting=csv.QUOTE_NONNUMERIC, encoding="utf-8", na_rep = np.nan, index = False)
-        diccionario_ciudad.to_csv(filename_diccionario_bulk_ciudad,quoting=csv.QUOTE_NONNUMERIC, encoding="utf-8", na_rep = np.nan, index = False)
+        datos_bulk_ciudad_sinna.to_csv(filename_bulk_ciudad,quoting=csv.QUOTE_ALL, encoding="utf-8", na_rep = np.nan, index = False)
+        diccionario_ciudad.to_csv(filename_diccionario_bulk_ciudad,quoting=csv.QUOTE_ALL, encoding="utf-8", na_rep = np.nan, index = False)
 
 
     #data for indices only valid for years before 2008
@@ -182,16 +184,20 @@ def generar_csvs(data):
     filename = "output/encuestas_lote.csv"
     filename_diccionario = "output/diccionario_encuestas_lote.csv"
 
-    datos_bulk_sinna.to_csv(filename,quoting=csv.QUOTE_NONNUMERIC, encoding="utf-8", na_rep = np.nan, index = False)
-    diccionario_bulk.to_csv(filename_diccionario,quoting=csv.QUOTE_NONNUMERIC, encoding="utf-8", na_rep = np.nan, index = False)
+    datos_bulk_sinna.to_csv(filename,quoting=csv.QUOTE_ALL, encoding="utf-8", na_rep = np.nan, index = False)
+    diccionario_bulk.to_csv(filename_diccionario,quoting=csv.QUOTE_ALL, encoding="utf-8", na_rep = np.nan, index = False)
 
     for ciudad_key in diccionario_ciudades:
 
         print(ciudad_key)
+        if not os.path.exists("output/"+ciudad_clean+"/subjetivos_lote"):
+            os.makedirs("output/"+ciudad_clean+"/subjetivos_lote")
+        if not os.path.exists("output/"+ciudad_clean+"/subjetivos_anual"):
+            os.makedirs("output/"+ciudad_clean+"/subjetivos_anual")
         ciudad = diccionario_ciudades[ciudad_key]
         ciudad_clean = cleanstring(ciudad)
-        filename_bulk_ciudad ="output/"+ciudad_clean + "/encuestas_" + ciudad_clean+"_lote.csv"
-        filename_diccionario_bulk_ciudad = "output/"+ciudad_clean + "/" + "diccionario_encuestas_"+ciudad_clean+"_lote.csv"
+        filename_bulk_ciudad ="output/"+ciudad_clean + "/subjetivos_lote/encuestas_" + ciudad_clean+"_lote.csv"
+        filename_diccionario_bulk_ciudad = "output/"+ciudad_clean + "/subjetivos_lote/" + "diccionario_encuestas_"+ciudad_clean+"_lote.csv"
 
 
         if not os.path.exists("output/"+ciudad_clean):
@@ -201,18 +207,18 @@ def generar_csvs(data):
         diccionario_ciudad=create_dictionary(datos_bulk_ciudad_sinna)
         años_datos = np.unique(datos_bulk_ciudad_sinna.AÑO)
 
-        datos_bulk_ciudad_sinna.to_csv(filename_bulk_ciudad,quoting=csv.QUOTE_NONNUMERIC, encoding="utf-8", na_rep = np.nan, index = False)
-        diccionario_ciudad.to_csv(filename_diccionario_bulk_ciudad,quoting=csv.QUOTE_NONNUMERIC, encoding="utf-8", na_rep = np.nan, index = False)
+        datos_bulk_ciudad_sinna.to_csv(filename_bulk_ciudad,quoting=csv.QUOTE_ALL, encoding="utf-8", na_rep = np.nan, index = False)
+        diccionario_ciudad.to_csv(filename_diccionario_bulk_ciudad,quoting=csv.QUOTE_ALL, encoding="utf-8", na_rep = np.nan, index = False)
 
         for año in años_datos:
             print(año)
-            filename_año = "output/"+ciudad_clean + "/encuestas_" + ciudad_clean+"_"+   año + ".csv"
-            filename_diccionario_año = "output/"+ciudad_clean + "/" + "diccionario_encuestas_"+ciudad_clean+"_"+año+".csv"
+            filename_año = "output/"+ciudad_clean + "/subjetivos_anual/encuestas_" + ciudad_clean+"_"+   año + ".csv"
+            filename_diccionario_año = "output/"+ciudad_clean + "/subjetivos_anual/" + "diccionario_encuestas_"+ciudad_clean+"_"+año+".csv"
             datos_bulk_ciudad_año = datos_bulk_ciudad_sinna[datos_bulk_ciudad_sinna['AÑO'] == año]
             datos_bulk_ciudad_año_sinna = datos_bulk_ciudad_año.dropna(axis=1,how="all")
             diccionario_ciudad_año=create_dictionary(datos_bulk_ciudad_año_sinna)
-            datos_bulk_ciudad_año_sinna.to_csv(filename_año,quoting=csv.QUOTE_NONNUMERIC, encoding="utf-8", na_rep = np.nan, index = False)
-            diccionario_ciudad_año.to_csv(filename_diccionario_año,quoting=csv.QUOTE_NONNUMERIC, encoding="utf-8", na_rep = np.nan, index = False)
+            datos_bulk_ciudad_año_sinna.to_csv(filename_año,quoting=csv.QUOTE_ALL, encoding="utf-8", na_rep = np.nan, index = False)
+            diccionario_ciudad_año.to_csv(filename_diccionario_año,quoting=csv.QUOTE_ALL, encoding="utf-8", na_rep = np.nan, index = False)
     return "Success"
 
 print("Inicia - cargar diccionarios")
