@@ -190,10 +190,6 @@ def generar_csvs(data):
     for ciudad_key in diccionario_ciudades:
 
         print(ciudad_key)
-        if not os.path.exists("output/"+ciudad_clean+"/subjetivos_lote"):
-            os.makedirs("output/"+ciudad_clean+"/subjetivos_lote")
-        if not os.path.exists("output/"+ciudad_clean+"/subjetivos_anual"):
-            os.makedirs("output/"+ciudad_clean+"/subjetivos_anual")
         ciudad = diccionario_ciudades[ciudad_key]
         ciudad_clean = cleanstring(ciudad)
         filename_bulk_ciudad ="output/"+ciudad_clean + "/subjetivos_lote/encuestas_" + ciudad_clean+"_lote.csv"
@@ -202,6 +198,10 @@ def generar_csvs(data):
 
         if not os.path.exists("output/"+ciudad_clean):
             os.makedirs("output/"+ciudad_clean)
+        if not os.path.exists("output/"+ciudad_clean+"/subjetivos_lote"):
+            os.makedirs("output/"+ciudad_clean+"/subjetivos_lote")
+        if not os.path.exists("output/"+ciudad_clean+"/subjetivos_anual"):
+            os.makedirs("output/"+ciudad_clean+"/subjetivos_anual")
         datos_bulk_ciudad = data[data['CIUDAD'] == ciudad_key]
         datos_bulk_ciudad_sinna = datos_bulk_ciudad.dropna(axis=1,how="all")
         diccionario_ciudad=create_dictionary(datos_bulk_ciudad_sinna)
