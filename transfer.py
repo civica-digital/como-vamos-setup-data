@@ -84,8 +84,8 @@ def limpiar_texto(texto):
 
 def detect_variable_type(respuestas):
     cantidad_respuestas = len(respuestas)
-    respuestas_1 = ["Muy Malo", "Nada", "Muy insatisfecho"]
-    if respuestas == 5 or respuestas == 6:
+    respuestas_1 = ["Muy Malo", "No confía nada", "Muy mala gestión","Completamente en desacuerdo", "Nada", "Muy insatisfecho"]
+    if len(respuestas >= 4 or len(respuestas == 8):
         try:
             resp_1 = respuestas["1"]
             if resp_1 in respuestas_1:
