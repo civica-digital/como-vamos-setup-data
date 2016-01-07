@@ -139,6 +139,7 @@ def create_dictionary(data):
     for header in headers_bulk:
         linea = generar_linea(header,data)
         dictionary_list.append(linea)
+        print(linea)
     df_dict = pd.DataFrame(dictionary_list, columns=["variable","descripcion","dimension","modulo","respuestas","tipo_respuestas","ano_min","ano_max"])
     return df_dict
 
