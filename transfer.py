@@ -57,7 +57,7 @@ def get_variable_avail_years(variable,data):
     max_year = max(year_array)
     return min_year,max_year
 
-def process(header):
+def variable_preprocess(header):
     header = str(header)
     suffix_starts=int(len(header)-2)
     suffix_finishes = int(len(header))
