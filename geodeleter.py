@@ -5,6 +5,7 @@ import csv
 f = "DICCIONARIO_FINAL_V19.csv"
 e = "UTF-8"
 data = pandas.read_csv(f, delimiter = ";",dtype=numpy.string_, encoding=e)
+print(len(data.columns.names))
 data = data.drop('GPS', 1)
 data = data.drop('GPS_LA', 1)
 data = data.drop('GPS_LO', 1)
