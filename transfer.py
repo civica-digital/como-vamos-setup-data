@@ -41,7 +41,7 @@ def cleancolumns(data):
 
 def getclosestelement(name, array):
     if name in array:
-        close = name
+        return name
     try:
         close = process.extractBests(name, array)[0][0]
     except:
