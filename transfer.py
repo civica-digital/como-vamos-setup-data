@@ -5,6 +5,7 @@ import os
 import csv
 import difflib
 import unicodedata
+from fuzzywuzzy import process
 
 print("Loading CSV file")
 #Cargar el archivo de datos, accesible mediante 146.148.12.206/output.csv , especificamos que los
@@ -38,8 +39,13 @@ def cleancolumns(data):
     data.columns = nuevas_columnas
     return data
 
-def getclosestelement(name,array):
-    close = difflib.get_close_matches(name,array)[0]
+def getclosestelement(name, array):
+    if name in array:
+        close = name
+    try:
+        close = process.extractBests(name, array)[0][0]
+    except:
+        close = difflib.get_close_matches(name, array)[0]
     return close
 
 def get_variable_avail_years(variable,data):
