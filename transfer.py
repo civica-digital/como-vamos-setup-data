@@ -11,6 +11,7 @@ print("Loading CSV file")
 #Cargar el archivo de datos, accesible mediante 146.148.12.206/output.csv , especificamos que los
 #data = pd.read_csv("output_4.csv",delimiter=",", dtype=np.string_, na_values=[" "], encoding="utf-8")
 data = pd.read_csv("output_4.csv",delimiter=",", na_values=[" "], encoding="utf-8", dtype=np.string_, )
+print(len(data.columns.values))
 print("Renombrando Columna de Año")
 data.rename(columns={'AO':'AÑO'}, inplace=True)
 
@@ -154,8 +155,6 @@ def generar_csvs(data):
 
     filename = "output/archivo_encuestas_lote.csv"
     filename_diccionario = "output/diccionario_archivo_encuestas_lote.csv"
-
-    print(len(datos_bulk_sinna.columns.names))
 
     datos_bulk_sinna.to_csv(filename,quoting=csv.QUOTE_ALL, encoding="utf-8", na_rep = np.nan, index = False)
     diccionario_bulk.to_csv(filename_diccionario,quoting=csv.QUOTE_ALL, encoding="utf-8", na_rep = np.nan, index = False )
