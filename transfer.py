@@ -10,7 +10,7 @@ from fuzzywuzzy import process
 print("Loading CSV file")
 #Cargar el archivo de datos, accesible mediante 146.148.12.206/output.csv , especificamos que los
 #data = pd.read_csv("output_4.csv",delimiter=",", dtype=np.string_, na_values=[" "], encoding="utf-8")
-data = pd.read_csv("output_4.csv",delimiter=",", na_values=[" "], encoding="utf-8", dtype=np.string_, )
+data = pd.read_csv("output_4.csv",delimiter=",", na_values=[" "], encoding="utf-8", dtype=np.string_, index_col = False)
 print(len(data.columns.values))
 print("Renombrando Columna de Año")
 data.rename(columns={'AO':'AÑO'}, inplace=True)
@@ -139,8 +139,16 @@ def create_dictionary(data):
     for header in headers_bulk:
         linea = generar_linea(header,data)
         dictionary_list.append(linea)
-    df_dict = pd.DataFrame(dictionary_list, columns=["variable","descripcion","dimension","modulo","respuestas","tipo_respuestas","ano_min","ano_max"])
+    df_dict = pd.DataFrame(dictionary_list, columns=["variable","descripcion","dimension","modulo","respuestas","tipo_respuestas","ano_min","ano_max"], index_col = False)
     return df_dict
+
+def write_xlsx(filename, data_dataframe, dictionary_dataframe):
+    writer = pd.ExcelWriter(filename, engine='xlsxwriter')
+    # Convert the dataframe to an XlsxWriter Excel object.
+    data_dataframe.to_excel(writer, sheet_name='Datos',index=False)
+    dictionary_dataframe.to_excel(writer, sheet_name='Diccionario',index=False)
+    writer.save()
+    return None
 
 def generar_csvs(data):
 
@@ -155,9 +163,11 @@ def generar_csvs(data):
 
     filename = "output/archivo_encuestas_lote.csv"
     filename_diccionario = "output/diccionario_archivo_encuestas_lote.csv"
+    filename_excel =  "output/archivo_encuestas_lote.xlsx"
 
     datos_bulk_sinna.to_csv(filename,quoting=csv.QUOTE_ALL, encoding="utf-8", na_rep = np.nan, index = False)
     diccionario_bulk.to_csv(filename_diccionario,quoting=csv.QUOTE_ALL, encoding="utf-8", na_rep = np.nan, index = False )
+    write_xlsx(filename_excel, datos_bulk_sinna, diccionario_bulk)
 
     for ciudad_key in diccionario_ciudades:
 
@@ -166,9 +176,10 @@ def generar_csvs(data):
         ciudad_clean = cleanstring(ciudad)
         if not os.path.exists("output/"+ciudad_clean+"/subjetivos_archivo"):
             os.makedirs("output/"+ciudad_clean+"/subjetivos_archivo")
-        filename_bulk_ciudad ="output/"+ciudad_clean+ "/subjetivos_archivo/archivo_encuestas_" + ciudad_clean+"_lote.csv"
-        filename_diccionario_bulk_ciudad = "output/"+ciudad_clean+ "/subjetivos_archivo/diccionario_archivo_encuestas_"+ciudad_clean+"_lote.csv"
 
+        filename_bulk_ciudad = "output/"+ciudad_clean+ "/subjetivos_archivo/archivo_encuestas_" + ciudad_clean+"_lote.csv"
+        filename_diccionario_bulk_ciudad = "output/"+ciudad_clean+ "/subjetivos_archivo/diccionario_archivo_encuestas_"+ciudad_clean+"_lote.csv"
+        filename_bulk_excel = "output/"+ciudad_clean+ "/subjetivos_archivo/archivo_encuestas_" + ciudad_clean+"_lote.xlsx"
 
         if not os.path.exists("output/"+ciudad_clean):
             os.makedirs("output/"+ciudad_clean)
@@ -179,7 +190,7 @@ def generar_csvs(data):
 
         datos_bulk_ciudad_sinna.to_csv(filename_bulk_ciudad,quoting=csv.QUOTE_ALL, encoding="utf-8", na_rep = np.nan, index = False)
         diccionario_ciudad.to_csv(filename_diccionario_bulk_ciudad,quoting=csv.QUOTE_ALL, encoding="utf-8", na_rep = np.nan, index = False)
-
+        write_xlsx(filename_bulk_excel, datos_bulk_ciudad_sinna,diccionario_ciudad)
 
     #data for indices only valid for years before 2008
     dictionary_fail = diccionario_bulk[diccionario_bulk.ano_max.notnull()]
@@ -191,18 +202,21 @@ def generar_csvs(data):
 
     filename = "output/encuestas_lote.csv"
     filename_diccionario = "output/diccionario_encuestas_lote.csv"
+    filename_excel = "output/encuestas_lote.xlsx"
 
     datos_bulk_sinna.to_csv(filename,quoting=csv.QUOTE_ALL, encoding="utf-8", na_rep = np.nan, index = False)
     diccionario_bulk.to_csv(filename_diccionario,quoting=csv.QUOTE_ALL, encoding="utf-8", na_rep = np.nan, index = False)
+    write_xlsx(filename_excel,datos_bulk_sinna,diccionario_bulk)
 
     for ciudad_key in diccionario_ciudades:
 
         print(ciudad_key)
         ciudad = diccionario_ciudades[ciudad_key]
         ciudad_clean = cleanstring(ciudad)
+
         filename_bulk_ciudad ="output/"+ciudad_clean + "/subjetivos_lote/encuestas_" + ciudad_clean+"_lote.csv"
         filename_diccionario_bulk_ciudad = "output/"+ciudad_clean + "/subjetivos_lote/" + "diccionario_encuestas_"+ciudad_clean+"_lote.csv"
-
+        filename_bulk_excel = "output/"+ciudad_clean + "/subjetivos_lote/encuestas_" + ciudad_clean+"_lote.xlsx"
 
         if not os.path.exists("output/"+ciudad_clean):
             os.makedirs("output/"+ciudad_clean)
@@ -217,16 +231,20 @@ def generar_csvs(data):
 
         datos_bulk_ciudad_sinna.to_csv(filename_bulk_ciudad,quoting=csv.QUOTE_ALL, encoding="utf-8", na_rep = np.nan, index = False)
         diccionario_ciudad.to_csv(filename_diccionario_bulk_ciudad,quoting=csv.QUOTE_ALL, encoding="utf-8", na_rep = np.nan, index = False)
+        write_xlsx(filename_bulk_excel, datos_bulk_ciudad_sinna, diccionario_ciudad)
 
         for año in años_datos:
             print(año)
             filename_año = "output/"+ciudad_clean + "/subjetivos_anual/encuestas_" + ciudad_clean+"_"+   año + ".csv"
             filename_diccionario_año = "output/"+ciudad_clean + "/subjetivos_anual/" + "diccionario_encuestas_"+ciudad_clean+"_"+año+".csv"
+            filename_diccionario_excel = "output/"+ciudad_clean + "/subjetivos_anual/" + "diccionario_encuestas_"+ciudad_clean+"_"+año+".xlsx"
+
             datos_bulk_ciudad_año = datos_bulk_ciudad_sinna[datos_bulk_ciudad_sinna['AÑO'] == año]
             datos_bulk_ciudad_año_sinna = datos_bulk_ciudad_año.dropna(axis=1,how="all")
             diccionario_ciudad_año=create_dictionary(datos_bulk_ciudad_año_sinna)
             datos_bulk_ciudad_año_sinna.to_csv(filename_año,quoting=csv.QUOTE_ALL, encoding="utf-8", na_rep = np.nan, index = False)
             diccionario_ciudad_año.to_csv(filename_diccionario_año,quoting=csv.QUOTE_ALL, encoding="utf-8", na_rep = np.nan, index = False)
+            write_xlsx(filename_diccionario_excel, datos_bulk_ciudad_año_sinna, diccionario_ciudad_año)
     return "Success"
 
 print("Inicia - cargar diccionarios")
