@@ -163,11 +163,11 @@ def generar_csvs(data):
 
     filename = "output/archivo_encuestas_lote.csv"
     filename_diccionario = "output/diccionario_archivo_encuestas_lote.csv"
-    filename_excel =  "output/archivo_encuestas_lote.xlsx"
+    #filename_excel =  "output/archivo_encuestas_lote.xlsx"
 
     datos_bulk_sinna.to_csv(filename,quoting=csv.QUOTE_ALL, encoding="utf-8", na_rep = np.nan, index = False)
     diccionario_bulk.to_csv(filename_diccionario,quoting=csv.QUOTE_ALL, encoding="utf-8", na_rep = np.nan, index = False )
-    write_xlsx(filename_excel, datos_bulk_sinna, diccionario_bulk)
+    #write_xlsx(filename_excel, datos_bulk_sinna, diccionario_bulk)
 
     for ciudad_key in diccionario_ciudades:
 
@@ -202,11 +202,11 @@ def generar_csvs(data):
 
     filename = "output/encuestas_lote.csv"
     filename_diccionario = "output/diccionario_encuestas_lote.csv"
-    filename_excel = "output/encuestas_lote.xlsx"
+    #filename_excel = "output/encuestas_lote.xlsx"
 
     datos_bulk_sinna.to_csv(filename,quoting=csv.QUOTE_ALL, encoding="utf-8", na_rep = np.nan, index = False)
     diccionario_bulk.to_csv(filename_diccionario,quoting=csv.QUOTE_ALL, encoding="utf-8", na_rep = np.nan, index = False)
-    write_xlsx(filename_excel,datos_bulk_sinna,diccionario_bulk)
+    #write_xlsx(filename_excel,datos_bulk_sinna,diccionario_bulk)
 
     for ciudad_key in diccionario_ciudades:
 
