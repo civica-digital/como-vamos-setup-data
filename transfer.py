@@ -237,14 +237,14 @@ def generar_csvs(data):
             print(año)
             filename_año = "output/"+ciudad_clean + "/subjetivos_anual/encuestas_" + ciudad_clean+"_"+   año + ".csv"
             filename_diccionario_año = "output/"+ciudad_clean + "/subjetivos_anual/" + "diccionario_encuestas_"+ciudad_clean+"_"+año+".csv"
-            filename_diccionario_excel = "output/"+ciudad_clean + "/subjetivos_anual/" + "encuestas_"+ciudad_clean+"_"+año+".xlsx"
+            filename_año_excel = "output/"+ciudad_clean + "/subjetivos_anual/" + "encuestas_"+ciudad_clean+"_"+año+".xlsx"
 
             datos_bulk_ciudad_año = datos_bulk_ciudad_sinna[datos_bulk_ciudad_sinna['AÑO'] == año]
             datos_bulk_ciudad_año_sinna = datos_bulk_ciudad_año.dropna(axis=1,how="all")
             diccionario_ciudad_año=create_dictionary(datos_bulk_ciudad_año_sinna)
             datos_bulk_ciudad_año_sinna.to_csv(filename_año,quoting=csv.QUOTE_ALL, encoding="utf-8", na_rep = np.nan, index = False)
             diccionario_ciudad_año.to_csv(filename_diccionario_año,quoting=csv.QUOTE_ALL, encoding="utf-8", na_rep = np.nan, index = False)
-            write_xlsx(filename_diccionario_excel, datos_bulk_ciudad_año_sinna, diccionario_ciudad_año)
+            write_xlsx(filename_año_excel, datos_bulk_ciudad_año_sinna, diccionario_ciudad_año)
     return "Success"
 
 print("Inicia - cargar diccionarios")
