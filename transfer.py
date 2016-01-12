@@ -237,7 +237,7 @@ def generar_csvs(data):
             print(año)
             filename_año = "output/"+ciudad_clean + "/subjetivos_anual/encuestas_" + ciudad_clean+"_"+   año + ".csv"
             filename_diccionario_año = "output/"+ciudad_clean + "/subjetivos_anual/" + "diccionario_encuestas_"+ciudad_clean+"_"+año+".csv"
-            filename_diccionario_excel = "output/"+ciudad_clean + "/subjetivos_anual/" + "diccionario_encuestas_"+ciudad_clean+"_"+año+".xlsx"
+            filename_diccionario_excel = "output/"+ciudad_clean + "/subjetivos_anual/" + "encuestas_"+ciudad_clean+"_"+año+".xlsx"
 
             datos_bulk_ciudad_año = datos_bulk_ciudad_sinna[datos_bulk_ciudad_sinna['AÑO'] == año]
             datos_bulk_ciudad_año_sinna = datos_bulk_ciudad_año.dropna(axis=1,how="all")
