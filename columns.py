@@ -27,9 +27,9 @@ list_num = sorted(list_num)
 while i < n:
     while iternum < len(list_num):
         next_lim = list_num[iternum]
-        working_cols = data.iloc[:,next_lim]
-        extract_cols = data.iloc[:,i:next_lim-1]
-        j = 1
+        working_cols = data.iloc[:,next_lim+1]
+        extract_cols = data.iloc[:,i:next_lim]
+        j = 0
         while j < jump-1:
             working_cols = working_cols + ";" + data.iloc[:,next_lim+j]
             j = j + 1
@@ -44,7 +44,7 @@ while i < n:
         else:
             table = pandas.concat([table,extract_cols], axis = 1, join='inner')
         iternum = iternum + 1
-        i = next_lim + jump-1
+        i = next_lim + jump
     table = pandas.concat([table,data.iloc[:,i:-1]], axis = 1)
     table = pandas.concat([table,pandas.DataFrame(data.iloc[:,-1])], axis = 1)
     i = n
